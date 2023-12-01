@@ -3,6 +3,7 @@ open System
 
 let stringlist (l:char list) =
     System.String.Concat(Array.ofList(l))
+
 let rec spelled (l: string) =
     match (l[..2]) with
     | "" -> -1
@@ -30,13 +31,15 @@ let rec firstNumberInLine (l: char list) (aggregated :char list) (map: list<char
         then 
             (int x - int '0') 
         else 
-            if spelled <| stringlist((aggregated@[x] |> map)) = -1 then
+            if spelled <| stringlist(aggregated@[x] |> map) = -1 then
                 firstNumberInLine xs (aggregated@[x]) map
             else 
-                spelled <| stringlist((aggregated@[x] |> map))
+                spelled <| stringlist(aggregated@[x] |> map)
 
+let twoDigitNumberInLine l = 
+    (firstNumberInLine l [] (fun x -> x) ) * 10  
+    + firstNumberInLine (l |> List.rev) [] List.rev 
 
-let twoDigitNumberInLine l = (firstNumberInLine l [] (fun x -> x) ) * 10  + firstNumberInLine (l |> List.rev) [] List.rev 
 let sumAllLinesInFile x =
     (File.ReadAllLines(x) |> Array.toList) 
     |> List.map (fun x -> twoDigitNumberInLine (Seq.toList(x))) 
