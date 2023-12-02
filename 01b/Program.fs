@@ -41,7 +41,7 @@ let twoDigitNumberInLine l =
     + firstNumberInLine (l |> List.rev) [] List.rev 
 
 let sumAllLinesInFile x =
-    (File.ReadAllLines(x) |> Array.toList) 
+    File.ReadAllLines(x) |> Array.toList
     |> List.map (fun x -> twoDigitNumberInLine (Seq.toList(x))) 
     |> List.sum
 
