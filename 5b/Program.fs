@@ -19,7 +19,7 @@ type range =
             source = x;
             length = y
         }
-let lines = File.ReadLines("C:\Users\Paul\Documents\GitHub\AoC2023\5b\Input.txt")
+let lines = File.ReadLines("Input.txt")
 
 let seedIn =
     (lines.First().Split([|':'|])[1]).Split([|' '|], StringSplitOptions.RemoveEmptyEntries) 

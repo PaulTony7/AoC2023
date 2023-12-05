@@ -11,7 +11,7 @@ type mapping =
             destination = y;
             range = z
         }
-let lines = File.ReadLines("C:\Users\Paul\Documents\GitHub\AoC2023\5a\Input.txt")
+let lines = File.ReadLines("Input.txt")
 
 let seeds =
     (lines.First().Split([|':'|])[1]).Split([|' '|], StringSplitOptions.RemoveEmptyEntries) 
