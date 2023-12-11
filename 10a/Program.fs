@@ -34,7 +34,7 @@ lookup.Add("|0",Direction.down)
 lookup.Add("|2",Direction.up)
 
 
-let board = File.ReadAllLines("C:\Users\kokot.p\Documents\GitHub\AoC2023\10a\Input.txt") |> Array.map (fun x -> x.ToCharArray())
+let board = File.ReadAllLines("Input.txt") |> Array.map (fun x -> x.ToCharArray())
 let width = board[0].Length
 let height = board.Length
 
