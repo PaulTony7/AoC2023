@@ -22,26 +22,27 @@ let WriteAllLinesNoFinalLineEnd outFileName (lines : seq<string>) =
     let count = lines |> Seq.length
     use writer = new StreamWriter(outFileName, false)
     lines
-    |> Seq.iteri (fun i line -> if i < count - 1 then
-                                    writer.WriteLine(line)
-                                else
-                                    writer.Write(line))
+    |> Seq.iteri (fun i line ->
+        if i < count - 1 then
+            writer.WriteLine(line)
+        else
+            writer.Write(line))
 
 //Possible values : J, F, L, 7, -, |
-let lookup = new Dictionary<string, Direction>()
-lookup.Add("J0",Direction.left)
-lookup.Add("J3",Direction.up)
-lookup.Add("F1",Direction.down)
-lookup.Add("F2",Direction.right)
-lookup.Add("L0",Direction.right)
-lookup.Add("L1",Direction.up)
-lookup.Add("72",Direction.left)
-lookup.Add("73",Direction.down)
-lookup.Add("-1",Direction.left)
-lookup.Add("-3",Direction.right)
-lookup.Add("|0",Direction.down)
-lookup.Add("|2",Direction.up)
-
+let lookup = dict [
+    "J0", Direction.left;
+    "J3", Direction.up;
+    "F1", Direction.down;
+    "F2", Direction.right;
+    "L0", Direction.right;
+    "L1", Direction.up;
+    "72", Direction.left;
+    "73", Direction.down;
+    "-1", Direction.left;
+    "-3", Direction.right;
+    "|0", Direction.down;
+    "|2", Direction.up
+]
 let loop = new List<Vector2>()
 
 let mutable board = File.ReadAllLines("Input.txt") |> Array.map (fun x -> x.ToCharArray())
@@ -56,7 +57,7 @@ let rec traverse x y (from:int) (distance:int) =
     if board[y][x] = 'S' 
         then distance
     else
-        match lookup[(string(board[y][x]) + string from)] with
+        match lookup.Item((string(board[y][x]) + string from)) with
         | Direction.up    -> traverse  x   (y-1) 2 (distance+1)
         | Direction.right -> traverse (x+1) y    3 (distance+1)
         | Direction.down  -> traverse  x   (y+1) 0 (distance+1)
